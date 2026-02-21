@@ -15,15 +15,213 @@
     <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 
+    <!-- Font Awesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+        integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
     <style>
         /* Universel Selector */
-        *{
+        * {
             font-family: "Geist", sans-serif;
         }
     </style>
 </head>
 
-<body>
+<body class="md:container mx-[5%] md:mx-auto">
+    <!-- Header Section -->
+    <header>
+        <h1 class="text-4xl font-extrabold text-neutral my-5">Job Application Tracker</h1>
+        <div class="grid grid-cols-3 gap-2 mb-5">
+            <div>
+                <div class="bg-blue-50 shadow-md p-6 ">
+                    <p class="text-xl">Total</p>
+                    <p id="total-count" class="text-xl">8</p>
+                </div>
+            </div>
+            <div>
+                <div class="bg-blue-50 shadow-md p-6 ">
+                    <p class="text-xl">InterView</p>
+                    <p id="Interview" class="text-xl text-success">0</p>
+                </div>
+            </div>
+            <div>
+                <div class="bg-blue-50 shadow-md p-6 ">
+                    <p class="text-xl">Rejected</p>
+                    <p id="rejected-count" class="text-xl text-secondary">0</p>
+                </div>
+            </div>
+        </div>
+        <hr>
+
+        <!-- availavel jobs -->
+        <div class="my-5 flex justify-between">
+            <h3 class="font-semibold text-xl text-neutral">Available Jobs</h3>
+            <p class="text-[#64748B]">8 jobs</p>
+        </div>
+
+        <!-- filter Btn -->
+        <div class="flex gap-7 my-5">
+            <button onclick="toggleStyle('all-filter-btn')" id="all-filter-btn" class="btn btn-info">All</button>
+            <button onclick="toggleStyle('Interview-filter-btn')" id="Interview" class="btn">Interview</button>
+            <button onclick="toggleStyle('Rejected-filter-btn')" id="Rejected" class="btn">Rejected</button>
+        </div>
+    </header>
+
+
+    <!-- Main Section like Cardbox -->
+    <main>
+        <!-- card container -->
+        <div class="card-container space-y-6">
+            <!-- Card -->
+            <div class="card-item flex justify-between items-start shadow-sm">
+                <div id="card-left" class="p-6 space-y-4 w-full">
+                    <h1 class="company-name font-bold text-2xl">TechNova Solutions</h1>
+                    <p class="position text-black/50">Frontend Developer</p>
+                    <p class="salary text-black/50">Dhaka, Bangladesh • Full-time • ৳60,000 - ৳90,000</p>
+                    <p class="condition text-neutral/80 bg-slate-300 py-3 px-2 inline-block">Not Applied</p>
+
+                    <p class="notes text-black/50">Build responsive web applications using HTML, Tailwind CSS, and JavaScript. Collaborate with.</p>
+                    <div class="btn-box flex gap-5">
+                        <button class="interview-btn btn btn-success btn-outline">Interview</button>
+                        <button class="rejected-btn btn btn-secondary btn-outline">Rejected</button>
+                    </div>
+                </div>
+                <div class="card-right m-5 border-1 rounded-full p-2 cursor-pointer">
+                    <i class="fa-solid fa-trash-can"></i>
+                </div>
+            </div>
+            <!-- Card -->
+            <div class="card-item flex justify-between items-start shadow-sm">
+                <div id="card-left" class="p-6 space-y-4 w-full">
+                    <h1 class="company-name font-bold text-2xl">CodeSphere Ltd.</h1>
+                    <p class="position text-black/50">Junior React Developer</p>
+                    <p class="salary text-black/50">Remote • Contact • $900 - $1200 / month</p>
+                    <p class="condition text-neutral/80 bg-slate-300 py-3 px-2 inline-block">Not Applied</p>
+
+                    <p class="notes text-black/50">Develop reusable React components and integrate REST APIs. Work closely with the product team to improve user experience.</p>
+                    <div class="btn-box flex gap-5">
+                        <button class="interview-btn btn btn-success btn-outline">Interview</button>
+                        <button class="rejected-btn btn btn-secondary btn-outline">Rejected</button>
+                    </div>
+                </div>
+                <div class="card-right m-5 border-1 rounded-full p-2 cursor-pointer">
+                    <i class="fa-solid fa-trash-can"></i>
+                </div>
+            </div>
+            <!-- Card -->
+            <div class="card-item flex justify-between items-start shadow-sm">
+                <div id="card-left" class="p-6 space-y-4 w-full">
+                    <h1 class="company-name font-bold text-2xl">ByteCraft Technologies</h1>
+                    <p class="position text-black/50">Backend Developer (Node.js)</p>
+                    <p class="salary text-black/50">Chattogram, Bangladesh • Full-time • ৳70,000 - ৳1,10,000</p>
+                    <p class="condition text-neutral/80 bg-slate-300 py-3 px-2 inline-block">Not Applied</p>
+
+                    <p class="notes text-black/50">Build cross-platform mobile applications using React Native. Work on
+                        products used by millions of users worldwide.</p>
+                    <div class="btn-box flex gap-5">
+                        <button class="interview-btn btn btn-success btn-outline">Interview</button>
+                        <button class="rejected-btn btn btn-secondary btn-outline">Rejected</button>
+                    </div>
+                </div>
+                <div class="card-right m-5 border-1 rounded-full p-2 cursor-pointer">
+                    <i class="fa-solid fa-trash-can"></i>
+                </div>
+            </div>
+            <!-- Card -->
+            <div class="card-item flex justify-between items-start shadow-sm">
+                <div id="card-left" class="p-6 space-y-4 w-full">
+                    <h1 class="company-name font-bold text-2xl">PixelForge Studio</h1>
+                    <p class="position text-black/50">UI/UX Designer</p>
+                    <p class="salary text-black/50">Remote • Part-time • $500 - $800 / month</p>
+                    <p class="condition text-neutral/80 bg-slate-300 py-3 px-2 inline-block">Not Applied</p>
+
+                    <p class="notes text-black/50">Design modern and user-friendly interfaces for web and mobile applications. Create wireframes and prototypes.</p>
+                    <div class="btn-box flex gap-5">
+                        <button class="interview-btn btn btn-success btn-outline">Interview</button>
+                        <button class="rejected-btn btn btn-secondary btn-outline">Rejected</button>
+                    </div>
+                </div>
+                <div class="card-right m-5 border-1 rounded-full p-2 cursor-pointer">
+                    <i class="fa-solid fa-trash-can"></i>
+                </div>
+            </div>
+            <!-- Card -->
+            <div class="card-item flex justify-between items-start shadow-sm">
+                <div id="card-left" class="p-6 space-y-4 w-full">
+                    <h1 class="company-name font-bold text-2xl">Mobile First Corp</h1>
+                    <p class="position text-black/50">React Native Developer</p>
+                    <p class="salary text-black/50">Remote • Full-time • $130,000 - $175,000</p>
+                    <p class="condition text-neutral/80 bg-slate-300 py-3 px-2 inline-block">Not Applied</p>
+
+                    <p class="notes text-black/50">Build cross-platform mobile applications using React Native. Work on
+                        products used by millions of users worldwide.</p>
+                    <div class="btn-box flex gap-5">
+                        <button class="interview-btn btn btn-success btn-outline">Interview</button>
+                        <button class="rejected-btn btn btn-secondary btn-outline">Rejected</button>
+                    </div>
+                </div>
+                <div class="card-right m-5 border-1 rounded-full p-2 cursor-pointer">
+                    <i class="fa-solid fa-trash-can"></i>
+                </div>
+            </div>
+            <!-- Card -->
+            <div class="card-item flex justify-between items-start shadow-sm">
+                <div id="card-left" class="p-6 space-y-4 w-full">
+                    <h1 class="company-name font-bold text-2xl">AppNest Global</h1>
+                    <p class="position text-black/50">React Native Developer</p>
+                    <p class="salary text-black/50">Hybrid (Dhaka) • Full-time • ৳80,000 - ৳1,30,000</p>
+                    <p class="condition text-neutral/80 bg-slate-300 py-3 px-2 inline-block">Not Applied</p>
+
+                    <p class="notes text-black/50">Develop cross-platform mobile apps using React Native. Optimize performance and fix bugs.</p>
+                    <div class="btn-box flex gap-5">
+                        <button class="interview-btn btn btn-success btn-outline">Interview</button>
+                        <button class="rejected-btn btn btn-secondary btn-outline">Rejected</button>
+                    </div>
+                </div>
+                <div class="card-right m-5 border-1 rounded-full p-2 cursor-pointer">
+                    <i class="fa-solid fa-trash-can"></i>
+                </div>
+            </div>
+            <!-- Card -->
+            <div class="card-item flex justify-between items-start shadow-sm">
+                <div id="card-left" class="p-6 space-y-4 w-full">
+                    <h1 class="company-name font-bold text-2xl">CloudWave Systems</h1>
+                    <p class="position text-black/50">DevOps Engineer</p>
+                    <p class="salary text-black/50">Remote • Full-time • $1,500 - $2,200 / month</p>
+                    <p class="condition text-neutral/80 bg-slate-300 py-3 px-2 inline-block">Not Applied</p>
+
+                    <p class="notes text-black/50">Manage CI/CD pipelines, monitor cloud infrastructure, and automate deployment processes using Docker and GitHub Actions.</p>
+                    <div class="btn-box flex gap-5">
+                        <button class="interview-btn btn btn-success btn-outline">Interview</button>
+                        <button class="rejected-btn btn btn-secondary btn-outline">Rejected</button>
+                    </div>
+                </div>
+                <div class="card-right m-5 border-1 rounded-full p-2 cursor-pointer">
+                    <i class="fa-solid fa-trash-can"></i>
+                </div>
+            </div>
+            <!-- Card -->
+            <div class="card-item flex justify-between items-start shadow-sm">
+                <div id="card-left" class="p-6 space-y-4 w-full">
+                    <h1 class="company-name font-bold text-2xl">DataBridge Analytics</h1>
+                    <p class="position text-black/50">Data Analyst</p>
+                    <p class="salary text-black/50">Dhaka, Bangladesh • Full-time • ৳55,000 - ৳85,000</p>
+                    <p class="condition text-neutral/80 bg-slate-300 py-3 px-2 inline-block">Not Applied</p>
+
+                    <p class="notes text-black/50">Analyze business data using Excel and SQL. Create dashboards and reports to support decision-making processes.</p>
+                    <div class="btn-box flex gap-5">
+                        <button class="interview-btn btn btn-success btn-outline">Interview</button>
+                        <button class="rejected-btn btn btn-secondary btn-outline">Rejected</button>
+                    </div>
+                </div>
+                <div class="card-right m-5 border-1 rounded-full p-2 cursor-pointer">
+                    <i class="fa-solid fa-trash-can"></i>
+                </div>
+            </div>
+        </div>
+    </main>
+
 
 
 
