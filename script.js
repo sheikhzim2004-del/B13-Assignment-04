@@ -23,6 +23,9 @@ function toggleStyle(id) {
   } else if(id === 'all-filter-btn'){
     cardContainer.classList.remove('hidden');
     filteredSection.classList.add('hidden');
+  } else if(id === 'rejected-filter-btn'){
+    cardContainer.classList.add('hidden');
+    filteredSection.classList.remove('hidden');
   }
 }
 
@@ -72,14 +75,18 @@ cardContainer.addEventListener('click', (event) => {
     }
     // console.log(cardInfo);
 
-    const companyExist = interviewList.find(item => item.companyName === cardInfo.companyName);
-    
+    //find and compaire then push
+    const companyExist = rejectedList.find(item => item.companyName === cardInfo.companyName);
     if(!companyExist){
         interviewList.push(cardInfo);
     }
+
+    //filter rejected list in interview list
+    // rejectedList = rejectedList.filter(item => item.companyName != cardInfo.companyName);
+
     // console.log(interviewList);
-    calculateCount()
     renderInterview()
+    calculateCount()
   }
   //rejected btn e event
   else if (event.target.classList.contains('rejected-btn')) {
@@ -114,11 +121,16 @@ cardContainer.addEventListener('click', (event) => {
     if(!companyExist){
         rejectedList.push(cardInfo);
     }
+
+    //filter rejected list in interview list
+    // interviewList = interviewList.filter(item => item.companyName != cardInfo.companyName);
+
     // console.log(interviewList);
-    calculateCount()
     renderRejected()
+    calculateCount()
   }
 });
+calculateCount()
 
 
 // render interview btn
@@ -128,7 +140,7 @@ function renderInterview(){
     for(let i of interviewList){
         console.log(i)
         let newDiv = document.createElement('div');
-        newDiv.classList = 'card-item flex justify-between items-start shadow-sm';
+        newDiv.classList = 'card-item flex justify-between items-start shadow-sm mb-[24px]';
         newDiv.innerHTML = `
         <div class="p-6 space-y-4 w-full">
                     <h1 class="company-name font-bold text-2xl">${i.companyName}</h1>
@@ -181,3 +193,26 @@ function renderRejected(){
     }
 
 }
+
+
+
+
+
+
+
+
+
+
+//all filter btn even litchenar
+allFilterBtn.addEventListener('click', function(){
+  toggleStyle('all-filter-btn');
+  filteredSection.innerHTML = '';
+});
+interviewFilterBtn.addEventListener('click', function(){
+  toggleStyle('interview-filter-btn');
+  renderInterview();
+});
+rejectedFilterBtn.addEventListener('click', function(){
+  toggleStyle('rejected-filter-btn');
+  renderRejected();
+});
