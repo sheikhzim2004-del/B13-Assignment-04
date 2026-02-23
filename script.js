@@ -63,7 +63,7 @@ parentNode.addEventListener('click', (event) => {
 
     const conditionElement = parentNode.querySelector('.condition');
     conditionElement.innerText = 'Interview';
-    conditionElement.classList = 'text-success font-extrabold bg-green-100 py-3 px-2 inline-block';
+    conditionElement.classList = 'condition text-success font-extrabold bg-green-100 py-3 px-2 inline-block';
 
 
     // card info gulake akshathe kore akta arry te rakha (6)
@@ -88,6 +88,7 @@ parentNode.addEventListener('click', (event) => {
 
     // console.log(interviewList);
     renderInterview()
+    renderRejected()
     calculateCount()
   }
   //rejected btn e event
@@ -105,7 +106,7 @@ parentNode.addEventListener('click', (event) => {
 
     const conditionElement = parentNode.querySelector('.condition');
     conditionElement.innerText = 'Rejected';
-    conditionElement.classList = 'text-error font-extrabold bg-red-100 py-3 px-2 inline-block';
+    conditionElement.classList = 'condition text-error font-extrabold bg-red-100 py-3 px-2 inline-block';
 
 
     // card info gulake akshathe kore akta arry te rakha (6)
@@ -131,6 +132,7 @@ parentNode.addEventListener('click', (event) => {
 
     // console.log(interviewList);
     renderRejected()
+    renderInterview()
     calculateCount()
   }
 });
