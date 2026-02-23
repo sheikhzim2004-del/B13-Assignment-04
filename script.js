@@ -1,5 +1,6 @@
 let interviewList = [];
 let rejectedList = [];
+let allCardList = [];
 
 // filter btn gulake dhore fela 
 const allFilterBtn = document.getElementById('all-filter-btn');
@@ -18,13 +19,13 @@ function toggleStyle(id) {
 
 
   if (id === 'interview-filter-btn') {
-    cardContainer.classList.add('hidden');
+    totalAllCard.classList.add('hidden');
     filteredSection.classList.remove('hidden');
   } else if (id === 'all-filter-btn') {
-    cardContainer.classList.remove('hidden');
+    totalAllCard.classList.remove('hidden');
     filteredSection.classList.add('hidden');
   } else if (id === 'rejected-filter-btn') {
-    cardContainer.classList.add('hidden');
+    totalAllCard.classList.add('hidden');
     filteredSection.classList.remove('hidden');
   }
 }
@@ -32,13 +33,16 @@ function toggleStyle(id) {
 const totalCount = document.getElementById('total-count');
 const interviewCount = document.getElementById('interview-count');
 const rejectedCount = document.getElementById('rejected-count');
-const cardContainer = document.getElementById('card-container');
+const totalAllCard = document.getElementById('card-container');
 const parentNode = document.getElementById('parent-node');
 const filteredSection = document.getElementById('filtered-section');
+const allCard = document.querySelectorAll('#card-container .card-item');
+
+
 
 //calculate count
 function calculateCount() {
-  totalCount.innerText = cardContainer.children.length;
+  totalCount.innerText = totalAllCard.children.length;
   interviewCount.innerText = interviewList.length;
   rejectedCount.innerText = rejectedList.length;
 }
@@ -48,6 +52,27 @@ function calculateCount() {
 //main section kea dhore tar upore even apply kora (3)
 parentNode.addEventListener('click', (event) => {
 
+
+
+  //delet buttun condition
+  if(event.target.closest('.dlt-btn')){
+    let parentNode = event.target.closest('.card-item');
+    let companyName = parentNode.querySelector('.company-name').innerText;
+
+    allCardList = allCardList.filter(item => item.companyName !== companyName);
+    interviewList = interviewList.filter(item => item.companyName !== companyName);
+    rejectedList = rejectedList.filter(item => item.companyName !== companyName);
+
+    parentNode.remove();
+    calculateCount();
+    renderInterview();
+    renderRejected();
+  }
+
+    // console.log(event.target.closest('.dlt-btn'))
+
+
+
   //interview btn e event
   if (event.target.classList.contains('interview-btn')) {
     const parentNode = event.target.closest('.card-item');
@@ -55,13 +80,13 @@ parentNode.addEventListener('click', (event) => {
 
 
     //all content er innertext ber kora (5)
-    const companyName = parentNode.querySelector('.company-name').innerText;
-    const position = parentNode.querySelector('.position').innerText;
-    const salary = parentNode.querySelector('.salary').innerText;
-    const condition = parentNode.querySelector('.condition').innerText;
-    const notes = parentNode.querySelector('.notes').innerText;
+    let companyName = parentNode.querySelector('.company-name').innerText;
+    let position = parentNode.querySelector('.position').innerText;
+    let salary = parentNode.querySelector('.salary').innerText;
+    let condition = parentNode.querySelector('.condition').innerText;
+    let notes = parentNode.querySelector('.notes').innerText;
 
-    const conditionElement = parentNode.querySelector('.condition');
+    let conditionElement = parentNode.querySelector('.condition');
     conditionElement.innerText = 'Interview';
     conditionElement.classList = 'condition text-success font-extrabold bg-green-100 py-3 px-2 inline-block';
 
@@ -142,6 +167,10 @@ calculateCount()
 // render interview btn
 function renderInterview() {
   filteredSection.innerHTML = '';
+  if(interviewList.length === 0){
+    showEmptyCard(filteredSection);
+    return;
+  }
 
   for (let i of interviewList) {
     console.log(i)
@@ -172,6 +201,10 @@ function renderInterview() {
 // render rejected btn
 function renderRejected() {
   filteredSection.innerHTML = '';
+  if(rejectedList.length === 0){
+    showEmptyCard(filteredSection);
+    return;
+  }
 
   for (let i of rejectedList) {
     console.log(i)
@@ -201,14 +234,6 @@ function renderRejected() {
 }
 
 
-
-
-
-
-
-
-
-
 //all filter btn even litchenar
 allFilterBtn.addEventListener('click', function () {
   toggleStyle('all-filter-btn');
@@ -222,3 +247,47 @@ rejectedFilterBtn.addEventListener('click', function () {
   toggleStyle('rejected-filter-btn');
   renderRejected();
 });
+
+
+
+// show not available job 
+function showEmptyCard(section) {
+
+    section.innerHTML = "";
+
+    let div = document.createElement("div");
+    div.className = "card flex justify-between p-5 shadow bg-white rounded-xs mx-auto";
+    div.innerHTML = `
+           <div class="flex justify-center items-center mx-auto py-17">
+            <div>
+                <img class="mx-auto mb-3" src="./jobs.png" alt="">
+                <h5 class="font-semibold text-2xl text-center">No jobs available</h5>
+                <p class="font-medium opacity-45 text-center">Check back soon for new job opportunities</p>
+            </div>
+        </div>
+    `;
+    section.appendChild(div);
+}
+
+
+
+//all card loop and save a arr
+document.addEventListener('DOMContentLoaded', function() {
+  for(let card of allCard){
+    let companyName = card.querySelector('.company-name').innerText;
+    let position = card.querySelector('.position').innerText;
+    let salary = card.querySelector('.salary').innerText;
+    let condition = card.querySelector('.condition').innerText;
+    let notes = card.querySelector('.notes').innerText;
+
+    let cardArr = {
+      companyName,
+      position,
+      salary,
+      condition,
+      notes
+    }
+    allCardList.push(cardArr);
+  }
+  calculateCount();
+})
