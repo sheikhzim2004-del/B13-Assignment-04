@@ -36,6 +36,7 @@ const rejectedCount = document.getElementById('rejected-count');
 const totalAllCard = document.getElementById('card-container');
 const parentNode = document.getElementById('parent-node');
 const filteredSection = document.getElementById('filtered-section');
+const filteredSectionInterview = document.getElementById('filtered-section-2');
 const allCard = document.querySelectorAll('#card-container .card-item');
 
 
@@ -63,10 +64,15 @@ parentNode.addEventListener('click', (event) => {
     interviewList = interviewList.filter(item => item.companyName !== companyName);
     rejectedList = rejectedList.filter(item => item.companyName !== companyName);
 
+
     parentNode.remove();
     calculateCount();
     renderInterview();
     renderRejected();
+
+    if(allCardList.length === 0){
+    showEmptyCard(totalAllCard);
+  }
   }
 
     // console.log(event.target.closest('.dlt-btn'))
@@ -166,14 +172,16 @@ calculateCount()
 
 // render interview btn
 function renderInterview() {
-  filteredSection.innerHTML = '';
+
+  filteredSectionInterview.innerHTML = '';
+
   if(interviewList.length === 0){
-    showEmptyCard(filteredSection);
+    showEmptyCard(filteredSectionInterview);
     return;
   }
 
   for (let i of interviewList) {
-    console.log(i)
+
     let newDiv = document.createElement('div');
     newDiv.classList = 'card-item flex justify-between items-start shadow-sm mb-[24px]';
     newDiv.innerHTML = `
@@ -190,10 +198,10 @@ function renderInterview() {
                     </div>
                 </div>
                 <div class="card-right m-5 border-1 rounded-full p-2 cursor-pointer">
-                    <i class="fa-solid fa-trash-can"></i>
+                    <button class="dlt-btn"><i class="fa-solid fa-trash-can"></i></button>
                 </div>
         `
-    filteredSection.appendChild(newDiv);
+    filteredSectionInterview.appendChild(newDiv);
 
   }
 
@@ -201,13 +209,14 @@ function renderInterview() {
 // render rejected btn
 function renderRejected() {
   filteredSection.innerHTML = '';
+
   if(rejectedList.length === 0){
     showEmptyCard(filteredSection);
     return;
   }
 
   for (let i of rejectedList) {
-    console.log(i)
+
     let newDiv = document.createElement('div');
     newDiv.classList = 'card-item flex justify-between items-start shadow-sm';
     newDiv.innerHTML = `
@@ -224,7 +233,7 @@ function renderRejected() {
                     </div>
                 </div>
                 <div class="card-right m-5 border-1 rounded-full p-2 cursor-pointer">
-                    <i class="fa-solid fa-trash-can"></i>
+                    <button class="dlt-btn"><i class="fa-solid fa-trash-can"></i></button>
                 </div>
         `
     filteredSection.appendChild(newDiv);
