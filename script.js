@@ -17,15 +17,17 @@ function toggleStyle(id) {
   const selected = document.getElementById(id);
   selected.classList.add('btn-info');
 
+  //first hide all item
+  totalAllCard.classList.add('hidden');
+  filteredSection.classList.add('hidden');
+  filteredSectionInterview.classList.add('hidden');
+
 
   if (id === 'interview-filter-btn') {
-    totalAllCard.classList.add('hidden');
-    filteredSection.classList.remove('hidden');
+    filteredSectionInterview.classList.remove('hidden');
   } else if (id === 'all-filter-btn') {
     totalAllCard.classList.remove('hidden');
-    filteredSection.classList.add('hidden');
   } else if (id === 'rejected-filter-btn') {
-    totalAllCard.classList.add('hidden');
     filteredSection.classList.remove('hidden');
   }
 }
