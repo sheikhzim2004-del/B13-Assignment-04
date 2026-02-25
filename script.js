@@ -83,7 +83,7 @@ parentNode.addEventListener('click', (event) => {
 
   //interview btn e event
   if (event.target.classList.contains('interview-btn')) {
-    const parentNode = event.target.closest('.card-item');
+    let parentNode = event.target.closest('.card-item');
     // console.log(parentNode);
 
 
@@ -97,6 +97,7 @@ parentNode.addEventListener('click', (event) => {
     let conditionElement = parentNode.querySelector('.condition');
     conditionElement.innerText = 'Interview';
     conditionElement.classList = 'condition text-success font-extrabold bg-green-100 py-3 px-2 inline-block';
+    parentNode.classList.add('border-l-5', 'border-green-600');
 
 
     // card info gulake akshathe kore akta arry te rakha (6)
@@ -140,6 +141,7 @@ parentNode.addEventListener('click', (event) => {
     const conditionElement = parentNode.querySelector('.condition');
     conditionElement.innerText = 'Rejected';
     conditionElement.classList = 'condition text-error font-extrabold bg-red-100 py-3 px-2 inline-block';
+    parentNode.classList.add('border-l-5', 'border-red-600');
 
 
     // card info gulake akshathe kore akta arry te rakha (6)
